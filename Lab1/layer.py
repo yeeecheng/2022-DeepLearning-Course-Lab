@@ -22,6 +22,10 @@ class linear_layer:
         self.weight -= (lr * self.weight_grad).T
         self.bias -= lr * self.bias_grad
 
+    def grad_zero(self):
+        self.weight_grad = 0 
+        self.bias_grads = 0 
+
 # activation function
 
 class sigmoid:
@@ -53,4 +57,32 @@ class tanh:
 
     def derivative(self, x):
         return 1 - (self(x) ** 2)
+    
+
+class ReLU:
+
+    def __init__(self):
+        pass
+
+    def forward(self, x):
+        return np.maximum(x, 0)
+    
+    def __call__(self, x):
+        return self.forward(x)
+    
+    def derivative(self, x):
+        return np.where(x > 0, 1, 0)
         
+class LeakyReLU:
+
+    def __init__(self):
+        pass
+    
+    def forward(self, x, alpha= 0.2):
+        return np.maximum(alpha * x, x)
+    
+    def __call__(self, x, alpha= 0.2):
+        return self.forward(x, alpha)
+    
+    def derivative(self, x, alpha= 0.2):
+        return np.where(x > 0, 1, alpha)
