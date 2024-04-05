@@ -26,11 +26,17 @@ class DeepConvNet_ELU(nn.Module):
             nn.BatchNorm2d(200),
             nn.ELU(),
             nn.MaxPool2d(kernel_size= (1, 2)),
+            nn.Dropout(),
+
+            nn.Conv2d(200, 330, kernel_size= (1, 5)),
+            nn.BatchNorm2d(330),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size= (1, 2)),
             nn.Dropout()
         )
 
         self.fc = nn.Sequential(
-            nn.Linear(8600, 2)
+            nn.Linear(6270, 2)
         )
 
     def forward(self, x):

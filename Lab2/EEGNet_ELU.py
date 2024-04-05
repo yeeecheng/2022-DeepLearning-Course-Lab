@@ -6,16 +6,16 @@ class EEGNet_ELU(nn.Module):
 
         # input [1, 2, 750]
         self.first_conv2d = nn.Sequential(
-            nn.Conv2d(1, 4, kernel_size=(1, 51), stride= (1, 1), padding=(0, 25), bias= False),
-            nn.BatchNorm2d(4)
+            nn.Conv2d(1, 8, kernel_size=(1, 51), stride= (1, 1), padding=(0, 25), bias= False),
+            nn.BatchNorm2d(8)
         )
         # [64, 2, 750]
         self.depthwise_conv2d = nn.Sequential(
-            nn.Conv2d(4, 8, kernel_size= (2, 1), stride= (1, 1), groups= 4, bias= False),
+            nn.Conv2d(8, 8, kernel_size= (2, 1), stride= (1, 1), groups= 4, bias= False),
             nn.BatchNorm2d(8),
             nn.ELU(),
             nn.AvgPool2d(kernel_size= (1, 4), stride= (1, 4), padding= 0),
-            nn.Dropout(0.25)
+            nn.Dropout(0.45)
         )
 
         self.separable_conv2d = nn.Sequential(
@@ -23,7 +23,7 @@ class EEGNet_ELU(nn.Module):
             nn.BatchNorm2d(8),
             nn.ELU(),
             nn.AvgPool2d(kernel_size= (1, 8), stride= (1, 8), padding= 0),
-            nn.Dropout(0.25)
+            nn.Dropout(0.45)
         )
 
         self.fc = nn.Sequential(
